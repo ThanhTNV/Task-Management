@@ -1,0 +1,23 @@
+<app-header />
+<main>
+  <ul id="users">
+    @for(user of users(); track $index) {
+    <li>
+      <app-user
+        [avatar]="user.avatar"
+        [id]="user.id"
+        [name]="user.name"
+        (select)="onUserSelected($event)"
+        [selected]="selectedUser?.id === user.id"
+      />
+      <!-- $event ngoài thể hiện trong template như là 1 parameter để chỉ Object Event,
+      nó còn có thể thay thế cho emit value trong component
+      Ở đây, component emit value là id: string, nên trong template $event sẽ mang giá trị id từ component
+      -->
+    </li>
+    }
+  </ul>
+  @if(selected()){
+  <app-tasks [user]="selectedUser!"></app-tasks>
+  }
+</main>
